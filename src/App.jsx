@@ -21,9 +21,9 @@ class App extends Component {
       content: content,
       username: this.state.currentUser
     };
-    this.setState({
-      messages: this.state.messages.concat(newMessage)
-    });
+    // this.setState({
+    //   messages: this.state.messages.concat(newMessage)
+    // });
     this.ws.send(JSON.stringify(newMessage));
   }
 
@@ -36,11 +36,12 @@ class App extends Component {
   this.ws = new WebSocket("ws://0.0.0.0:3001");
   console.log('connected to server');
 
-  // setTimeout(() => {
-  //   const newMessage = {id: Math.random(), type:'chat', username: "Michelle", content: "Hello there!"};
-  //   const incomingmessages = this.state.messages.concat(newMessage)
-  //   this.setState({messages: incomingmessages})
-  // }, 3000);
+  this.ws.onmessage = (event) => {
+  const newMessage = JSON.parse(event.data);
+  this.setState({
+      messages: this.state.messages.concat(newMessage)
+    });
+  }
 }
 
   render() {
