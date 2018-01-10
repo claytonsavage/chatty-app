@@ -32,11 +32,6 @@ class App extends Component {
       username: username,
       oldusername: this.state.currentUser.username
     }
-    // this.setState({
-    //   messages: this.state.messages.concat(newMessage)
-    // });
-    console.log('new username', newUsername.username);
-    console.log('old username', newUsername.oldusername);
     let userObject = this.ws.send(JSON.stringify(newUsername))
     this.setState({ currentUser: { username: username, oldusername: 'this.state.currentUser.username' } })
   }
