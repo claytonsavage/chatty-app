@@ -10,7 +10,9 @@ class App extends Component {
     this.state = {
       currentUser: {type: 'system', username: 'MysteryPerson', oldusername: 'MysteryPerson'},
 
-      messages: []
+      messages: [],
+
+      userCount: 0
     };
   }
 
@@ -38,14 +40,18 @@ class App extends Component {
 
   componentDidMount() {
   this.ws = new WebSocket("ws://0.0.0.0:3001");
- // console.log('connected to server');
-
   this.ws.onmessage = (event) => {
   const newMessage = JSON.parse(event.data);
-  //console.log(newMessage);
-  this.setState({
-      messages: this.state.messages.concat(newMessage)
-    });
+  //sort things here
+    if (newMessage.hasOwnProperty('type')) {
+      this.setState({
+          messages: this.state.messages.concat(newMessage)
+        });
+    } else {
+      this.setState({
+        userCount: event.data
+      });
+    }
   }
 }
 
@@ -54,6 +60,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <p className="userCount">users online {this.state.userCount}</p>
         </nav>
         <MessageList messages={this.state.messages} currentUser={this.state.currentUser}/>
         <ChatBar addMessage={this.addMessage.bind(this)} currentUser={this.state.currentUser.username} olduser={this.state.currentUser.oldusername} changeUsername={this.changeUsername.bind(this)}/>

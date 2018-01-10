@@ -36,7 +36,6 @@
     "babel-preset-stage-0": "6.24.1",
     "css-loader": "0.28.8",
     "eslint": "4.15.0",
-    "eslint-plugin-react": "7.5.1",
     "node-sass": "4.7.2",
     "sass-loader": "6.0.6",
     "sockjs-client": "^1.1.2",
