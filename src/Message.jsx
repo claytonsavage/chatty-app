@@ -17,6 +17,13 @@ class Message extends Component {
         </div>
       );
     }
+    if (this.props.type === 'connection') {
+      return (
+        <div className="message system">
+          {this.props.content}
+        </div>
+        )
+    }
   }
 }
 
