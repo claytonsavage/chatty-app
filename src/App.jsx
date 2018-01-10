@@ -8,7 +8,7 @@ class App extends Component {
 
     super(props);
     this.state = {
-      currentUser: 'Bob',
+      currentUser: {type: 'system', username: 'MysteryPerson', oldusername: 'MysteryPerson'},
 
       messages: []
     };
@@ -19,24 +19,35 @@ class App extends Component {
       id: Math.random(),
       type: 'chat',
       content: content,
-      username: this.state.currentUser
+      username: this.state.currentUser.username,
+      oldusername: this.state.currentUser.oldusername
     };
-    // this.setState({
-    //   messages: this.state.messages.concat(newMessage)
-    // });
+    console.log(newMessage);
     this.ws.send(JSON.stringify(newMessage));
   }
 
   changeUsername(username) {
-    this.setState({currentUser: username})
+    const newUsername = {
+      type: 'system',
+      username: username,
+      oldusername: this.state.currentUser.username
+    }
+    // this.setState({
+    //   messages: this.state.messages.concat(newMessage)
+    // });
+    console.log('new username', newUsername.username);
+    console.log('old username', newUsername.oldusername);
+    let userObject = this.ws.send(JSON.stringify(newUsername))
+    this.setState({ currentUser: { username: username, oldusername: 'this.state.currentUser.username' } })
   }
 
   componentDidMount() {
   this.ws = new WebSocket("ws://0.0.0.0:3001");
-  console.log('connected to server');
+ // console.log('connected to server');
 
   this.ws.onmessage = (event) => {
   const newMessage = JSON.parse(event.data);
+  //console.log(newMessage);
   this.setState({
       messages: this.state.messages.concat(newMessage)
     });
@@ -49,8 +60,8 @@ class App extends Component {
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
-        <MessageList messages={this.state.messages}/>
-        <ChatBar addMessage={this.addMessage.bind(this)} currentUser={this.state.currentUser} changeUsername={this.changeUsername.bind(this)}/>
+        <MessageList messages={this.state.messages} currentUser={this.state.currentUser}/>
+        <ChatBar addMessage={this.addMessage.bind(this)} currentUser={this.state.currentUser.username} olduser={this.state.currentUser.oldusername} changeUsername={this.changeUsername.bind(this)}/>
       </div>
     );
   }

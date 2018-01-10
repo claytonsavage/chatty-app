@@ -10,7 +10,8 @@ class MessageList extends Component {
             key={message.id}
             content={message.content}
             type={message.type}
-            username={message.username} />
+            username={message.username}
+            oldusername={message.oldusername} />
         ))}
       </main>
     );
