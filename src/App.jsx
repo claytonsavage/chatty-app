@@ -28,8 +28,7 @@ class App extends Component {
   }
 
   changeUsername(username) {
-    const newUsername = username;
-    this.setState({curentUser: newUsername})
+    this.setState({currentUser: username})
   }
 
   componentDidMount() {
@@ -51,7 +50,7 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={this.state.messages}/>
-        <ChatBar addMessage={this.addMessage.bind(this)} currentUser={this.state.currentUser}/>
+        <ChatBar addMessage={this.addMessage.bind(this)} currentUser={this.state.currentUser} changeUsername={this.changeUsername.bind(this)}/>
       </div>
     );
   }
