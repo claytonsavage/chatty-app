@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
+import NavBar from './NavBar.jsx';
 
 class App extends Component {
 
@@ -17,6 +18,14 @@ class App extends Component {
       if (url) {
           return (url.match(/\.(jpeg|jpg|gif|png)$/) != null)
       }
+  }
+
+  removeURL(message) {
+      return message.content.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+  }
+
+  isolateURL(messageWithURL, messageWithoutURL) {
+      return messageWithURL.content.replace(messageWithoutURL, '')
   }
 
   addMessage(content) {
@@ -46,8 +55,8 @@ class App extends Component {
           if (newMessage.hasOwnProperty('type') && newMessage.type !== "colorset") {
               const hasURL = this.checkURL(newMessage.content);
               if (hasURL) {
-                  const noURL = newMessage.content.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
-                  const URL = newMessage.content.replace(noURL, '');
+                  const noURL = this.removeURL(newMessage);
+                  const URL = this.isolateURL(newMessage, noURL);
                   newMessage.content = noURL
                   newMessage.image = URL
                   this.setState({
@@ -77,17 +86,14 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-          <p className="userCount">users online {this.state.userCount}</p>
-        </nav>
+      <Fragment>
+        <NavBar userCount={this.state.userCount}/>
         <MessageList messages={this.state.messages} currentUser={this.state.currentUser}/>
         <ChatBar addMessage={this.addMessage.bind(this)}
                  currentUser={this.state.currentUser.username}
                  olduser={this.state.currentUser.oldusername}
                  changeUsername={this.changeUsername.bind(this)}/>
-      </div>
+      </Fragment>
     );
   }
 }
