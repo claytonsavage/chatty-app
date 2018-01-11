@@ -1,154 +1,136 @@
-    body
-{
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
 
-    margin: 70px 0;
+        margin: 70px 0;
 
-    color: black;
-    background: white;
-}
+        color: black;
+        background: white;
+    }
 
-.chatbar
-{
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    .chatbar {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
 
-    display: flex;
+        display: flex;
 
-    padding: 5px;
+        padding: 5px;
 
-    border-top: 1px solid black;
-    background: tomato;
-}
+        border-top: 1px solid black;
+        background: tomato;
+    }
 
-.chatbar-message,
-.chatbar-username
-{
-    line-height: 40px;
+    .chatbar-message,
+    .chatbar-username {
+        line-height: 40px;
 
-    display: block;
+        display: block;
 
-    height: 40px;
-    margin: 5px;
-    padding: 0 9px;
+        height: 40px;
+        margin: 5px;
+        padding: 0 9px;
 
-    border: 1px solid black;
-}
+        border: 1px solid black;
+    }
 
-.chatbar-message
-{
-    flex: 8;
-}
+    .chatbar-message {
+        flex: 8;
+    }
 
-.chatbar-username
-{
-    flex: 2;
-}
+    .chatbar-username {
+        flex: 2;
+    }
 
-.message
-{
-    display: flex;
+    .message {
+        display: flex;
 
-    padding: 5px;
-}
+        padding: 5px;
+    }
 
-.message.system
-{
-    font-style: italic;
+    .message.system {
+        font-style: italic;
 
-    padding: 5px 20px;
-}
+        padding: 5px 20px;
+    }
 
-.message-content,
-.message-username
-{
-    overflow: hidden;
+    .message-content,
+    .message-username {
+        overflow: hidden;
 
-    margin: 5px;
-    padding: 0 10px;
-}
+        margin: 5px;
+        padding: 0 10px;
+    }
 
-.message-content
-{
-    flex: 8;
-}
+    .message-content {
+        flex: 8;
+    }
 
-.message-username
-{
-    font-weight: 700;
+    .message-username {
+        font-weight: 700;
 
-    flex: 2;
-}
+        flex: 2;
+    }
 
-.navbar
-{
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
 
-    height: 60px;
-    padding: 0 10px;
+        height: 60px;
+        padding: 0 10px;
 
-    border-bottom: 1px solid black;
-    background: tomato;
-}
+        border-bottom: 1px solid black;
+        background: tomato;
+    }
 
-.navbar-brand
-{
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 60px;
+    .navbar-brand {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 60px;
 
-    display: block;
-    float: left;
+        display: block;
+        float: left;
 
-    height: 60px;
-    padding: 0 10px;
+        height: 60px;
+        padding: 0 10px;
 
-    text-decoration: none;
+        text-decoration: none;
 
-    color: inherit;
-}
+        color: inherit;
+    }
 
-.userCount
-{
-    float: right;
+    .userCount {
+        float: right;
 
-    margin-top: 20px;
-    margin-right: 17px;
+        margin-top: 20px;
+        margin-right: 17px;
 
-    color: black;
-}
+        color: black;
+    }
 
-.red
-{
-    color: #aa000f;
-}
+    .red {
+        color: #aa000f;
+    }
 
-.blue
-{
-    color: skyblue;
-}
+    .blue {
+        color: skyblue;
+    }
 
-.green
-{
-    color: #0aa00f;
-}
+    .green {
+        color: #0aa00f;
+    }
 
-.pink
-{
-    color: #ff57ff;
-}
+    .pink {
+        color: #ff57ff;
+    }
 
-.chatimage
-{
-    width: 30vw;
-    height: 30vw;
-    margin-right: 35%;
+    .chatimage {
+        width: 30vw;
+        height: 30vw;
+        margin-right: 35%;
 
-    object-fit: cover;
-}
+        object-fit: cover;
+    }
