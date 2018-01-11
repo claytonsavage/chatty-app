@@ -10,12 +10,23 @@ class Message extends Component {
       );
     }
     if (this.props.type === 'chat') {
+
+      if (this.props.image) {
+      return (
+        <div className="message">
+          <span className={"message-username " + this.props.userColor}>{this.props.username}</span>
+          <span className="message-content">{this.props.content}</span>
+          <img src={this.props.image} className="chatimage"/>
+        </div>
+        )
+      } else {
       return (
         <div className="message">
           <span className={"message-username " + this.props.userColor}>{this.props.username}</span>
           <span className="message-content">{this.props.content}</span>
         </div>
       );
+      }
     }
     if (this.props.type === 'connection') {
       return (
