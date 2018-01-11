@@ -15,7 +15,9 @@ class App extends Component {
 
 // returns true if image or false
   checkURL(url) {
-      return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+      if (url) {
+      return (url.match(/\.(jpeg|jpg|gif|png)$/) != null)
+      }
   }
 
   addMessage(content) {
@@ -45,24 +47,20 @@ componentDidMount() {
   this.ws.onmessage = (event) => {
   let newMessage = JSON.parse(event.data);
     if (newMessage.hasOwnProperty('type') && newMessage.type !== "colorset") {
-      // check if message contains jpeg
-      if (this.checkURL(newMessage.content)) {
+  const hasURL = this.checkURL(newMessage.content);
+      if (hasURL) {
         const noURL = newMessage.content.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
         const URL = newMessage.content.replace(noURL, '');
         console.log(URL);
         console.log("it is an image");
         console.log(noURL);
-        // pass the url in as a new thing in message
-        // pass the rest as the content
-        //id: "22e45330-f668-11e7-b5e4-5ffa4a763962", type: "chat", content: "refesr", username: "Anonymous", color: "pink"
         newMessage.content = noURL
         newMessage.image = URL
         console.log(newMessage)
-        //set it as the message
         this.setState({
           messages: this.state.messages.concat(newMessage)
          });
-      } else if (!this.checkURL(newMessage.content)) {
+      } else if (!hasURL) {
         this.setState({
           messages: this.state.messages.concat(newMessage)
         });
