@@ -1,7 +1,7 @@
 Chatty App
 =====================
 
-A minimal and light chat application made with ReactJS.
+A simple single page React based chat application that uses websockets.
 
 ### Usage
 chat with other users that have connected to the chatty-server
