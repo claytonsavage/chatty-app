@@ -8,6 +8,9 @@ chat with other users that have connected to the chatty-server
 change your username
 send image URL's to share images with other users
 
+## Screenshot
+!["Screenshot of Chatty messages"](https://github.com/claytonsavage/chatty-app/blob/master/docs/ChattyApp.png?raw=true)
+
 Install the dependencies and start the server.
 
 - install and run application
