@@ -8,7 +8,7 @@ class App extends Component {
 
     super(props);
     this.state = {
-      currentUser: {type: 'system', username: 'MysteryPerson', oldusername: 'MysteryPerson'},
+      currentUser: {type: 'system', username: 'Anonymous', oldusername: 'Anonymous', color: 'red'},
 
       messages: [],
 
@@ -22,31 +22,48 @@ class App extends Component {
       type: 'chat',
       content: content,
       username: this.state.currentUser.username,
-      oldusername: this.state.currentUser.oldusername
+      color: this.state.currentUser.color
+      //oldusername: this.state.currentUser.oldusername
     };
-    console.log(newMessage);
     this.ws.send(JSON.stringify(newMessage));
   }
+
+  // chooseColor() {
+  //   const colorArray = [
+  //   'red',
+  //   'green',
+  //   'blue',
+  //   'pink'
+  //   ];
+  //   const randomNumber = Math.floor(Math.random()*colorArray.length);
+  //   return colorArray[randomNumber];
+  // }
 
   changeUsername(username) {
     const newUsername = {
       type: 'system',
       username: username,
-      oldusername: this.state.currentUser.username
+      oldusername: this.state.currentUser.username,
+      color: 'blue'
     }
+    //let randomColor = this.chooseColor();
     let userObject = this.ws.send(JSON.stringify(newUsername))
-    this.setState({ currentUser: { username: username, oldusername: 'this.state.currentUser.username' } })
+    this.setState({ currentUser: { username: username, oldusername: this.state.currentUser.username , color: this.state.currentUser.color } })
   }
 
-  componentDidMount() {
+componentDidMount() {
   this.ws = new WebSocket("ws://0.0.0.0:3001");
   this.ws.onmessage = (event) => {
   const newMessage = JSON.parse(event.data);
   //sort things here
-    if (newMessage.hasOwnProperty('type')) {
+    if (newMessage.hasOwnProperty('type') && newMessage.type !== "colorset") {
       this.setState({
           messages: this.state.messages.concat(newMessage)
         });
+    } else if (newMessage.type === "colorset") {
+      const color = JSON.parse(event.data).color
+      console.log(color)
+      this.setState({ currentUser: { username: this.state.currentUser.username, oldusername: this.state.currentUser.username , color: color } })
     } else {
       this.setState({
         userCount: event.data

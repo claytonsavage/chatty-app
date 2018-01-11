@@ -20,6 +20,20 @@ const wss = new SocketServer({ server });
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
+
+function chooseColor() {
+    const colorArray = [
+    'red',
+    'green',
+    'blue',
+    'pink'
+    ];
+    const randomNumber = Math.floor(Math.random()*colorArray.length);
+    return colorArray[randomNumber];
+  }
+
+
+
 wss.broadcast = function broadcast(message) {
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
@@ -37,11 +51,15 @@ wss.on('connection', (ws) => {
   wss.clients.forEach(function each(client) {
     if (client.readyState === ws.OPEN) {
       client.send(clientSize);
-      let messageContent = {"content": "a user joined this chat",
+      const messageContent = {"content": "a user joined this chat",
                             "id": uuidv1(),
                             "type": "connection"}
       const stringMessage = JSON.stringify(messageContent);
+      // send color
+      let randomColoruser = {"type": "colorset", "color": chooseColor(), "id":uuidv1()}
+      let colorMessage = JSON.stringify(randomColoruser);
       client.send(stringMessage);
+      client.send(colorMessage);
       }
   });
 

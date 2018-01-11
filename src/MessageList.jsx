@@ -16,7 +16,8 @@ class MessageList extends Component {
             type={message.type}
             username={message.username}
             oldusername={message.oldusername}
-            userCount={this.props.userCount} />
+            userCount={this.props.userCount}
+            userColor={message.color} />
         ))}
 
       </main>
