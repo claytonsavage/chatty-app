@@ -21,7 +21,7 @@ class App extends Component {
 
   addMessage(content) {
     const newMessage = {
-      id: Math.random(),
+      id: null,
       type: 'chat',
       content: content,
       username: this.state.currentUser.username,
