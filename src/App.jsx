@@ -13,7 +13,6 @@ class App extends Component {
     };
   }
 
-// returns true if image or false
   checkURL(url) {
       if (url) {
       return (url.match(/\.(jpeg|jpg|gif|png)$/) != null)
@@ -45,18 +44,14 @@ class App extends Component {
 componentDidMount() {
   this.ws = new WebSocket("ws://0.0.0.0:3001");
   this.ws.onmessage = (event) => {
-  let newMessage = JSON.parse(event.data);
+    let newMessage = JSON.parse(event.data);
     if (newMessage.hasOwnProperty('type') && newMessage.type !== "colorset") {
-  const hasURL = this.checkURL(newMessage.content);
+      const hasURL = this.checkURL(newMessage.content);
       if (hasURL) {
         const noURL = newMessage.content.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
         const URL = newMessage.content.replace(noURL, '');
-        console.log(URL);
-        console.log("it is an image");
-        console.log(noURL);
         newMessage.content = noURL
         newMessage.image = URL
-        console.log(newMessage)
         this.setState({
           messages: this.state.messages.concat(newMessage)
          });
@@ -66,12 +61,14 @@ componentDidMount() {
         });
       }
     } else if (newMessage.type === "colorset") {
-      const color = JSON.parse(event.data).color
-      this.setState({ currentUser: { username: this.state.currentUser.username, oldusername: this.state.currentUser.username , color: color } })
+        const color = JSON.parse(event.data).color
+        this.setState({ currentUser: { username: this.state.currentUser.username,
+                                       oldusername: this.state.currentUser.username,
+                                       color: color } })
     } else {
-      this.setState({
+        this.setState({
         userCount: event.data
-      });
+        });
     }
   }
 }
@@ -84,7 +81,10 @@ componentDidMount() {
           <p className="userCount">users online {this.state.userCount}</p>
         </nav>
         <MessageList messages={this.state.messages} currentUser={this.state.currentUser}/>
-        <ChatBar addMessage={this.addMessage.bind(this)} currentUser={this.state.currentUser.username} olduser={this.state.currentUser.oldusername} changeUsername={this.changeUsername.bind(this)}/>
+        <ChatBar addMessage={this.addMessage.bind(this)}
+                 currentUser={this.state.currentUser.username}
+                 olduser={this.state.currentUser.oldusername}
+                 changeUsername={this.changeUsername.bind(this)}/>
       </div>
     );
   }

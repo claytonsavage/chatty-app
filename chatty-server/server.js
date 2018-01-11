@@ -32,10 +32,12 @@ wss.on('connection', (ws) => {
     if (client.readyState === ws.OPEN) {
       client.send(clientSize);
       const messageContent = {"content": "a user joined this chat",
-                            "id": uuidv1(),
-                            "type": "connection"}
+                              "id": uuidv1(),
+                              "type": "connection"}
       const stringMessage = JSON.stringify(messageContent);
-      let randomColoruser = {"type": "colorset", "color": chooseColor(), "id":uuidv1()}
+      let randomColoruser = {"type": "colorset",
+                             "color": chooseColor(),
+                             "id":uuidv1()}
       let colorMessage = JSON.stringify(randomColoruser);
       client.send(stringMessage);
       client.send(colorMessage);

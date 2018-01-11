@@ -116,32 +116,39 @@
 
 .userCount
 {
-    color: black;
     float: right;
+
     margin-top: 20px;
     margin-right: 17px;
+
+    color: black;
 }
 
 .red
 {
-    color: #AA000F;
+    color: #aa000f;
 }
 
-.blue {
+.blue
+{
     color: skyblue;
 }
 
-.green {
-    color: #0AA00F;
+.green
+{
+    color: #0aa00f;
 }
 
-.pink {
-    color: #FF57FF;
+.pink
+{
+    color: #ff57ff;
 }
 
-.chatimage {
-  object-fit: cover;
-  width: 30vw;
-  height: 30vw;
-  margin-right: 35%;
+.chatimage
+{
+    width: 30vw;
+    height: 30vw;
+    margin-right: 35%;
+
+    object-fit: cover;
 }
