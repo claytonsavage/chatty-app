@@ -5,15 +5,17 @@ import MessageList from './MessageList.jsx';
 class App extends Component {
 
   constructor(props) {
-
     super(props);
     this.state = {
       currentUser: {type: 'system', username: 'Anonymous', oldusername: 'Anonymous', color: 'red'},
-
       messages: [],
-
       userCount: 0
     };
+  }
+
+// returns true if image or false
+  checkURL(url) {
+      return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
   }
 
   addMessage(content) {
@@ -23,21 +25,9 @@ class App extends Component {
       content: content,
       username: this.state.currentUser.username,
       color: this.state.currentUser.color
-      //oldusername: this.state.currentUser.oldusername
     };
     this.ws.send(JSON.stringify(newMessage));
   }
-
-  // chooseColor() {
-  //   const colorArray = [
-  //   'red',
-  //   'green',
-  //   'blue',
-  //   'pink'
-  //   ];
-  //   const randomNumber = Math.floor(Math.random()*colorArray.length);
-  //   return colorArray[randomNumber];
-  // }
 
   changeUsername(username) {
     const newUsername = {
@@ -46,7 +36,6 @@ class App extends Component {
       oldusername: this.state.currentUser.username,
       color: 'blue'
     }
-    //let randomColor = this.chooseColor();
     let userObject = this.ws.send(JSON.stringify(newUsername))
     this.setState({ currentUser: { username: username, oldusername: this.state.currentUser.username , color: this.state.currentUser.color } })
   }
@@ -55,14 +44,23 @@ componentDidMount() {
   this.ws = new WebSocket("ws://0.0.0.0:3001");
   this.ws.onmessage = (event) => {
   const newMessage = JSON.parse(event.data);
-  //sort things here
     if (newMessage.hasOwnProperty('type') && newMessage.type !== "colorset") {
+      // check if message contains jpeg
+      if (this.checkURL(newMessage.content)) {
+      const noURL = newMessage.content.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+      const URL = newMessage.content.replace(noURL, '');
+      console.log(URL);
+      console.log("it is an image");
+      console.log(noURL);
+      // pass the url only
+      }
+
+
       this.setState({
           messages: this.state.messages.concat(newMessage)
         });
     } else if (newMessage.type === "colorset") {
       const color = JSON.parse(event.data).color
-      console.log(color)
       this.setState({ currentUser: { username: this.state.currentUser.username, oldusername: this.state.currentUser.username , color: color } })
     } else {
       this.setState({
